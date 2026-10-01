@@ -1,0 +1,233 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Inspect Android SDK archive",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Item -LiteralPath \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\commandlinetools-win.zip\" | Format-List FullName,Length,LastWriteTime"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Extract Android command tools",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Expand-Archive -LiteralPath \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\commandlinetools-win.zip\" -DestinationPath \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\android-tools\" -Force; Get-ChildItem \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\android-tools\\cmdline-tools\\bin\" -Filter sdkmanager.bat | Select-Object -ExpandProperty FullName"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Prepare Android SDK tools",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$sdk = Join-Path $env:LOCALAPPDATA 'Android\\Sdk'; New-Item -ItemType Directory -Force -Path (Join-Path $sdk 'cmdline-tools') | Out-Null; Move-Item -LiteralPath (Join-Path $env:LOCALAPPDATA 'NU-LIRC-Android-Build\\android-tools\\cmdline-tools') -Destination (Join-Path $sdk 'cmdline-tools\\latest') -Force; & (Join-Path $env:LOCALAPPDATA 'NU-LIRC-Android-Build\\jdk\\jdk-21.0.12.1+1\\bin\\java.exe') -version; & (Join-Path $sdk 'cmdline-tools\\latest\\bin\\sdkmanager.bat') --version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Android SDK packages",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$env:JAVA_HOME = Join-Path $env:LOCALAPPDATA 'NU-LIRC-Android-Build\\jdk\\jdk-21.0.12.1+1'; $env:PATH = \"$env:JAVA_HOME\\bin;$env:PATH\"; $sdk = Join-Path $env:LOCALAPPDATA 'Android\\Sdk'; & (Join-Path $sdk 'cmdline-tools\\latest\\bin\\sdkmanager.bat') --sdk_root=$sdk 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Clean unrelated SDK license records",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Remove-Item -LiteralPath \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\android-sdk-preview-license\",\"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\google-gdk-license\",\"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\mips-android-sysimage-license\" -Force -ErrorAction SilentlyContinue; Get-ChildItem \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\" | Select-Object -ExpandProperty Name"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Keep standard SDK license only",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-ChildItem \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\" -File | Where-Object { $_.Name -ne 'android-sdk-license' } | Remove-Item -Force; Get-ChildItem \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\" | Select-Object -ExpandProperty Name"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Remove unrelated SDK licenses",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Remove-Item -LiteralPath \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\android-googletv-license\",\"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\android-googlexr-license\",\"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\\android-sdk-arm-dbt-license\" -Force -ErrorAction SilentlyContinue; Get-ChildItem \"$env:LOCALAPPDATA\\Android\\Sdk\\licenses\" | Select-Object -ExpandProperty Name"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read Gradle error log",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Content -LiteralPath \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" -Tail 140"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find Gradle failure cause",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Select-String -Path \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" -Pattern \"FAILURE:|What went wrong:|Could not|Caused by:|SDK location not found|requires.*Java|requires.*SDK\" | Select-Object -First 30 | ForEach-Object { $_.Line }"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Read Gradle log cause",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Content -Encoding Unicode \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" | Select-Object -First 40"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect latest Gradle result",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Content -Encoding Unicode \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" | Select-Object -First 35"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Gradle log status",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Item \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" | Select-Object Length,LastWriteTime; Get-Content -Encoding Unicode \"$env:LOCALAPPDATA\\NU-LIRC-Android-Build\\gradle-build.log\" -Tail 60"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build updated NU LIRC APK",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts\\build_android_apk.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

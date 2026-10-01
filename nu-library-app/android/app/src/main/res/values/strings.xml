@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NU LIRC</string>
+    <string name="title_activity_main">NU LIRC</string>
+    <string name="package_name">in.niituniversity.lirc</string>
+    <string name="custom_url_scheme">in.niituniversity.lirc</string>
+</resources>
