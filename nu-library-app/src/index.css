@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nu-maroon: #8A151B;
+  --color-nu-maroon-dark: #660F14;
+  --color-nu-crimson: #964538;
+  --color-nu-dark: #0E0E10;
+  --color-nu-dark-surface: #121214;
+  --color-nu-surface: #1C1C1E;
+  --color-nu-card: #242428;
+  --color-nu-border: #333338;
+  --color-nu-orange: #FFA726;
+  --color-nu-green: #4CAF50;
+  --color-nu-coral: #FF5252;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0E0E10;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #121214;
+}
+::-webkit-scrollbar-thumb {
+  background: #333338;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8A151B;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.22s ease-out forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s infinite ease-in-out;
+}

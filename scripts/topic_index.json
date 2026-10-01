@@ -1,0 +1,1045 @@
+{
+  "curriculum": "NIIT University LIRC Topic AI",
+  "topics": [
+    {
+      "topicId": "top_01",
+      "topicName": "Deadlocks and Process Synchronization",
+      "category": "Computer Science",
+      "course": "Operating Systems",
+      "studentQueries": [
+        "I am unable to understand deadlocks",
+        "I don't understand deadlock prevention and avoidance",
+        "how does the banker's algorithm work in operating systems",
+        "coffman conditions for deadlock",
+        "semaphores and mutex locks synchronization",
+        "dining philosophers problem"
+      ],
+      "recommendedBookId": "cat_04",
+      "bookTitle": "Operating System Concepts (Silberschatz)",
+      "relevantChapters": [
+        "Chapter 6: Synchronization Tools",
+        "Chapter 7: Synchronization Examples",
+        "Chapter 8: Deadlocks"
+      ],
+      "whyRecommended": "Silberschatz provides the canonical mathematical definition of Coffman's 4 conditions, Banker's Algorithm safety algorithm, and practical semaphore examples in C.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0053",
+          "title": "Operating systems",
+          "score": 18,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9788178087399"
+        },
+        {
+          "bookId": "nu_bk_0159",
+          "title": "Desktop operating systems",
+          "score": 12,
+          "callNumber": "005.52 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0462",
+          "title": "Linux operating systems part-1",
+          "score": 12,
+          "callNumber": "005.532 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0463",
+          "title": "Linux operating systems part-2",
+          "score": 12,
+          "callNumber": "005.532 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0156",
+          "title": "Microsoft windows server operating systems",
+          "score": 12,
+          "callNumber": "005.368 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0481",
+          "title": "Operating systems (Acc. No. 568-570)",
+          "score": 12,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0130",
+          "title": "Unix operating systems",
+          "score": 12,
+          "callNumber": "005.432 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9790975532583"
+        },
+        {
+          "bookId": "nu_bk_1036",
+          "title": "Introduction to relational database management systems : student guide",
+          "score": 6,
+          "callNumber": "005.7565 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_02",
+      "topicName": "Virtual Memory and Paging",
+      "category": "Computer Science",
+      "course": "Operating Systems",
+      "studentQueries": [
+        "how does virtual memory paging work",
+        "page replacement algorithms FIFO LRU Optimal",
+        "I don't understand thrashing in OS",
+        "translation lookaside buffer TLB",
+        "demand paging and page fault handling"
+      ],
+      "recommendedBookId": "cat_04",
+      "bookTitle": "Operating System Concepts (Silberschatz)",
+      "relevantChapters": [
+        "Chapter 9: Main Memory",
+        "Chapter 10: Virtual Memory"
+      ],
+      "whyRecommended": "Explains hardware-software interaction in MMU, TLB hits/misses, and step-by-step page replacement comparisons.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0053",
+          "title": "Operating systems",
+          "score": 18,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9788178087399"
+        },
+        {
+          "bookId": "nu_bk_0159",
+          "title": "Desktop operating systems",
+          "score": 12,
+          "callNumber": "005.52 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0462",
+          "title": "Linux operating systems part-1",
+          "score": 12,
+          "callNumber": "005.532 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0463",
+          "title": "Linux operating systems part-2",
+          "score": 12,
+          "callNumber": "005.532 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0156",
+          "title": "Microsoft windows server operating systems",
+          "score": 12,
+          "callNumber": "005.368 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0481",
+          "title": "Operating systems (Acc. No. 568-570)",
+          "score": 12,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0130",
+          "title": "Unix operating systems",
+          "score": 12,
+          "callNumber": "005.432 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9790975532583"
+        },
+        {
+          "bookId": "nu_bk_0957",
+          "title": "Essentials of linux operating system : project and referance reading guide",
+          "score": 5,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_03",
+      "topicName": "Dynamic Programming",
+      "category": "Computer Science",
+      "course": "Data Structures & Algorithms",
+      "studentQueries": [
+        "how does dynamic programming work",
+        "I don't understand memoization vs tabulation",
+        "longest common subsequence LCS algorithm",
+        "matrix chain multiplication optimal parenthesization",
+        "0/1 knapsack problem dynamic programming"
+      ],
+      "recommendedBookId": "cat_06",
+      "bookTitle": "Introduction to Algorithms (CLRS)",
+      "relevantChapters": [
+        "Chapter 15: Dynamic Programming"
+      ],
+      "whyRecommended": "CLRS is the worldwide standard for DP formulation, defining optimal substructure and overlapping subproblems with proof of correctness.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0617",
+          "title": "Data structures and algorithms",
+          "score": 12,
+          "callNumber": "005.73 AHO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "978-0201000238"
+        },
+        {
+          "bookId": "nu_bk_0604",
+          "title": "Data structures",
+          "score": 9,
+          "callNumber": "005.133 SAH",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780071184571"
+        },
+        {
+          "bookId": "nu_bk_0614",
+          "title": "Data structures using c and c++",
+          "score": 9,
+          "callNumber": "005.133 LAN",
+          "stackLocation": "Central Library Stack",
+          "isbn": "978-0130369970"
+        },
+        {
+          "bookId": "nu_bk_0107",
+          "title": "Learning data structures using c++",
+          "score": 9,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0372",
+          "title": "Big data black book",
+          "score": 6,
+          "callNumber": "005 DTE",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9789351197577"
+        },
+        {
+          "bookId": "nu_bk_1071",
+          "title": "IEEE Transaction on knowledge and data engineering",
+          "score": 6,
+          "callNumber": "005.7 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1035",
+          "title": "Querying and managing data using sql server : activity  book",
+          "score": 6,
+          "callNumber": "005.7585 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1034",
+          "title": "Querying and managing data using sql server : student guide",
+          "score": 6,
+          "callNumber": "005.7585 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_04",
+      "topicName": "Graph Algorithms and Shortest Paths",
+      "category": "Computer Science",
+      "course": "Data Structures & Algorithms",
+      "studentQueries": [
+        "dijkstra's algorithm shortest path",
+        "bellman ford algorithm negative weight cycles",
+        "minimum spanning tree prim and kruskal",
+        "breadth first search BFS vs depth first search DFS",
+        "floyd warshall all pairs shortest paths"
+      ],
+      "recommendedBookId": "cat_06",
+      "bookTitle": "Introduction to Algorithms (CLRS)",
+      "relevantChapters": [
+        "Chapter 22: Elementary Graph Algorithms",
+        "Chapter 23: Minimum Spanning Trees",
+        "Chapter 24: Single-Source Shortest Paths"
+      ],
+      "whyRecommended": "Rigorous pseudocode and asymptotic runtime proofs for Dijkstra, Bellman-Ford, Kruskal, and Prim algorithms.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0617",
+          "title": "Data structures and algorithms",
+          "score": 11,
+          "callNumber": "005.73 AHO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "978-0201000238"
+        },
+        {
+          "bookId": "nu_bk_0604",
+          "title": "Data structures",
+          "score": 8,
+          "callNumber": "005.133 SAH",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780071184571"
+        },
+        {
+          "bookId": "nu_bk_0614",
+          "title": "Data structures using c and c++",
+          "score": 8,
+          "callNumber": "005.133 LAN",
+          "stackLocation": "Central Library Stack",
+          "isbn": "978-0130369970"
+        },
+        {
+          "bookId": "nu_bk_0107",
+          "title": "Learning data structures using c++",
+          "score": 8,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0372",
+          "title": "Big data black book",
+          "score": 5,
+          "callNumber": "005 DTE",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9789351197577"
+        },
+        {
+          "bookId": "nu_bk_0003",
+          "title": "Data and network communications lab manual",
+          "score": 5,
+          "callNumber": "004.6 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1071",
+          "title": "IEEE Transaction on knowledge and data engineering",
+          "score": 5,
+          "callNumber": "005.7 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0426",
+          "title": "International journal of business data communications and networking",
+          "score": 5,
+          "callNumber": "004 INT",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_05",
+      "topicName": "Backpropagation and Neural Networks",
+      "category": "Computer Science",
+      "course": "Machine Learning & Deep Learning",
+      "studentQueries": [
+        "I am unable to understand backpropagation mathematics",
+        "how gradient descent updates weights with chain rule",
+        "stochastic gradient descent SGD and Adam optimizer",
+        "vanishing gradient problem in deep networks",
+        "activation functions relu sigmoid softmax"
+      ],
+      "recommendedBookId": "cat_10",
+      "bookTitle": "Deep Learning (Goodfellow, Bengio, Courville)",
+      "relevantChapters": [
+        "Chapter 6: Deep Feedforward Networks",
+        "Chapter 8: Optimization for Training Deep Models"
+      ],
+      "whyRecommended": "Ian Goodfellow breaks down computational graph differentiation, calculus chain rule, and modern adaptive optimizers.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_1081",
+          "title": "IEEE transactions on pattern analysis and machine intelligence",
+          "score": 5,
+          "callNumber": "004.36 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0429",
+          "title": "International journal of web-based learning and teaching technologies",
+          "score": 5,
+          "callNumber": "371.3344678 INT",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0107",
+          "title": "Learning data structures using c++",
+          "score": 5,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0607",
+          "title": "Advances in software engineering",
+          "score": 3,
+          "callNumber": "005.1 ARO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "0074620134"
+        },
+        {
+          "bookId": "nu_bk_0007",
+          "title": "C programming in linux",
+          "score": 3,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0008",
+          "title": "C programming in linux lab manual",
+          "score": 3,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0154",
+          "title": "Client side programming in javascript",
+          "score": 3,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0907",
+          "title": "Client-side programming in java script",
+          "score": 3,
+          "callNumber": "004.362 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_06",
+      "topicName": "Informed Search and A* Algorithm",
+      "category": "Computer Science",
+      "course": "Artificial Intelligence",
+      "studentQueries": [
+        "I don't understand A* heuristic search",
+        "admissible and consistent heuristics",
+        "minimax algorithm and alpha beta pruning",
+        "Markov decision processes MDP and value iteration",
+        "bayesian belief networks probabilistic reasoning"
+      ],
+      "recommendedBookId": "cat_02",
+      "bookTitle": "Artificial Intelligence: A Modern Approach (Russell & Norvig)",
+      "relevantChapters": [
+        "Chapter 3 & 4: Informed Search",
+        "Chapter 5: Adversarial Search",
+        "Chapter 13: Probabilistic Reasoning"
+      ],
+      "whyRecommended": "Russell & Norvig explains heuristic admissibility proofs, game tree pruning, and Bayesian network inference.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_1053",
+          "title": "Artificial Intelligence and the study of agentive behaviour format",
+          "score": 10,
+          "callNumber": "006.3 NAR",
+          "stackLocation": "11",
+          "isbn": "9780070531536"
+        },
+        {
+          "bookId": "nu_bk_1086",
+          "title": "IEEE computer graphics and applications",
+          "score": 7,
+          "callNumber": "006.6 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1088",
+          "title": "IEEE ransaction on neural networks",
+          "score": 7,
+          "callNumber": "006.32 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0486",
+          "title": "3D max",
+          "score": 6,
+          "callNumber": "006.696 DIS",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0544",
+          "title": "3D max advanced courseware",
+          "score": 6,
+          "callNumber": "006.696 DIS",
+          "stackLocation": "Central Library Stack",
+          "isbn": "1564440192"
+        },
+        {
+          "bookId": "nu_bk_0148",
+          "title": "3D modeling",
+          "score": 6,
+          "callNumber": "006.693 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0500",
+          "title": "3ds max",
+          "score": 6,
+          "callNumber": "006.696 DIS",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0549",
+          "title": "Adobe illustrator 9.0",
+          "score": 6,
+          "callNumber": "006.6 USE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_07",
+      "topicName": "Database Normalization and BCNF",
+      "category": "Computer Science",
+      "course": "Database Management Systems",
+      "studentQueries": [
+        "how to normalize a database table to 3NF and BCNF",
+        "functional dependencies and candidate key derivation",
+        "1NF 2NF 3NF and Boyce Codd normal form",
+        "lossless join decomposition and dependency preservation",
+        "ACID properties and transactions"
+      ],
+      "recommendedBookId": "cat_05",
+      "bookTitle": "Database System Concepts (Silberschatz)",
+      "relevantChapters": [
+        "Chapter 6: Database Design and Normalization",
+        "Chapter 14: Transactions"
+      ],
+      "whyRecommended": "Step-by-step algorithms to compute attribute closure, identify Armstrong axioms, and decompose tables into 3NF and BCNF.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_1036",
+          "title": "Introduction to relational database management systems : student guide",
+          "score": 16,
+          "callNumber": "005.7565 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0136",
+          "title": "Network systems management",
+          "score": 8,
+          "callNumber": "004.6 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0915",
+          "title": "Network systems management lab manual",
+          "score": 8,
+          "callNumber": "004.6 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0179",
+          "title": "Understanding database management",
+          "score": 8,
+          "callNumber": "005.74 NAV",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1083",
+          "title": "IEEE transactions on fuzzy systems",
+          "score": 6,
+          "callNumber": "005.36 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0285",
+          "title": "Management control and information systems",
+          "score": 6,
+          "callNumber": "658 ICF",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9788178816876"
+        },
+        {
+          "bookId": "nu_bk_0610",
+          "title": "Management information systems",
+          "score": 6,
+          "callNumber": "658.4038 KRO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780071134224"
+        },
+        {
+          "bookId": "nu_bk_0128",
+          "title": "Managing business information systems",
+          "score": 6,
+          "callNumber": "658.05 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_08",
+      "topicName": "TCP/IP Transport Layer and Three-Way Handshake",
+      "category": "Computer Science",
+      "course": "Computer Networks",
+      "studentQueries": [
+        "I don't understand TCP 3-way handshake and connection teardown",
+        "how subnetting and CIDR prefix works",
+        "difference between TCP flow control and congestion control",
+        "sliding window protocol in transport layer",
+        "DNS hierarchy and resolution process"
+      ],
+      "recommendedBookId": "cat_03",
+      "bookTitle": "Computer Networking: A Top-Down Approach (Kurose & Ross)",
+      "relevantChapters": [
+        "Chapter 2: Application Layer",
+        "Chapter 3: Transport Layer",
+        "Chapter 4: Network Layer"
+      ],
+      "whyRecommended": "Kurose & Ross uses Wireshark trace examples to visualize SYN, SYN-ACK, ACK packet exchanges and Reno/Tahoe congestion windows.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0607",
+          "title": "Advances in software engineering",
+          "score": 5,
+          "callNumber": "005.1 ARO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "0074620134"
+        },
+        {
+          "bookId": "nu_bk_0007",
+          "title": "C programming in linux",
+          "score": 5,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0008",
+          "title": "C programming in linux lab manual",
+          "score": 5,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0154",
+          "title": "Client side programming in javascript",
+          "score": 5,
+          "callNumber": "005.133 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0907",
+          "title": "Client-side programming in java script",
+          "score": 5,
+          "callNumber": "004.362 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0908",
+          "title": "Client-side programming in java script lab manual",
+          "score": 5,
+          "callNumber": "004.362 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1027",
+          "title": "Computers in your future",
+          "score": 5,
+          "callNumber": "004 MEY",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9788120313460"
+        },
+        {
+          "bookId": "nu_bk_0954",
+          "title": "Essentials of linux operating system : working with X window system",
+          "score": 5,
+          "callNumber": "005.43 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_09",
+      "topicName": "Continuous & Discrete Fourier Transforms",
+      "category": "Electronics",
+      "course": "Signals and Systems",
+      "studentQueries": [
+        "I don't understand Fourier transform and frequency domain",
+        "how convolution integral works in LTI systems",
+        "Laplace transform region of convergence ROC",
+        "Z-transform inverse and poles/zeros stability",
+        "Nyquist-Shannon sampling theorem and aliasing"
+      ],
+      "recommendedBookId": "cat_09",
+      "bookTitle": "Signals and Systems (Oppenheim, Willsky, Nawab)",
+      "relevantChapters": [
+        "Chapter 2: LTI Systems",
+        "Chapter 4: Continuous-Time Fourier Transform",
+        "Chapter 9 & 10: Laplace and Z-Transforms"
+      ],
+      "whyRecommended": "The classic MIT textbook demonstrating time-to-frequency duality, convolution proofs, and filter design.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_1089",
+          "title": "IEEE journal of robotics and automation",
+          "score": 4,
+          "callNumber": "629.8 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1070",
+          "title": "IEEE Transactions on: systems",
+          "score": 4,
+          "callNumber": "621.306 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0188",
+          "title": "Proceedings of the computer systems and software engineering",
+          "score": 4,
+          "callNumber": "005.1 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": "0818620412"
+        },
+        {
+          "bookId": "nu_bk_0982",
+          "title": "World guide to higher education : a comparative survey of systems",
+          "score": 4,
+          "callNumber": "378 WOR",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780119842975"
+        },
+        {
+          "bookId": "nu_bk_0028",
+          "title": "Control systems",
+          "score": 3,
+          "callNumber": "629.895 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0029",
+          "title": "Control systems lab manual",
+          "score": 3,
+          "callNumber": "629.895 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0159",
+          "title": "Desktop operating systems",
+          "score": 3,
+          "callNumber": "005.52 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1041",
+          "title": "Finding out the risk zones of tsunami in makaran subduction region using gis",
+          "score": 3,
+          "callNumber": "910.285 NAK",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_10",
+      "topicName": "Docker Containerization and Kubernetes",
+      "category": "Computer Science",
+      "course": "Cloud Computing & DevOps",
+      "studentQueries": [
+        "how Docker containers differ from virtual machines",
+        "writing multi-stage Dockerfiles",
+        "Docker Compose for multi-container apps",
+        "understanding Kubernetes Pods, Services, and Deployments",
+        "container orchestration and microservices"
+      ],
+      "recommendedBookId": "cat_13",
+      "bookTitle": "Ultimate Docker Container Book (Gabriel N. Schenker)",
+      "relevantChapters": [
+        "Chapter 3: Building Docker Images",
+        "Chapter 6: Docker Compose",
+        "Chapter 10: Kubernetes in Practice"
+      ],
+      "whyRecommended": "Hands-on guide to container namespaces, cgroups, image caching, and Kubernetes pod networking.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_1090",
+          "title": "IEEE internet computing",
+          "score": 5,
+          "callNumber": "004.678 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0540",
+          "title": "Third IEEE conference on pervasive computing and communications workshop",
+          "score": 5,
+          "callNumber": "004 IEE",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780769523002"
+        },
+        {
+          "bookId": "nu_bk_0215",
+          "title": "Developing xml web services and server components",
+          "score": 3,
+          "callNumber": "004.65 MIC",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0612",
+          "title": "Introduction to computing for engineers",
+          "score": 3,
+          "callNumber": "620.00285 CHA",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780071138833"
+        },
+        {
+          "bookId": "nu_bk_0058",
+          "title": "Microsoft network infrastructure and active directory services",
+          "score": 3,
+          "callNumber": "005.4476 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0059",
+          "title": "Microsoft network infrastructure and active directory services lab manual",
+          "score": 3,
+          "callNumber": "005.4476 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0502",
+          "title": "NU workshop on trustworthy computations in mobile & cloud environment (lecture)",
+          "score": 3,
+          "callNumber": "LIRC 000",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0677",
+          "title": "Occupational analysis IT services",
+          "score": 3,
+          "callNumber": "004.678029 NAS",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_11",
+      "topicName": "React Hooks and Full Stack MERN Development",
+      "category": "Computer Science",
+      "course": "Web Application Engineering",
+      "studentQueries": [
+        "I want to learn react and node js",
+        "how React useEffect and useState hooks work",
+        "connecting Express backend to MongoDB database",
+        "JWT token authentication in MERN stack",
+        "state management in React apps"
+      ],
+      "recommendedBookId": "cat_12",
+      "bookTitle": "Pro MERN Stack (Vasan Subramanian)",
+      "relevantChapters": [
+        "Chapter 4: React State & Lifecycle",
+        "Chapter 7: Server-Side with Express",
+        "Chapter 8: Database Integration with MongoDB"
+      ],
+      "whyRecommended": "Covers end-to-end full stack architecture from single page React routing down to REST APIs and MongoDB document schemas.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0428",
+          "title": "International journal of information technology and web engineering",
+          "score": 8,
+          "callNumber": "004.678 INT",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1042",
+          "title": "Land information system: web- gis application",
+          "score": 8,
+          "callNumber": "910.285 DUB",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0607",
+          "title": "Advances in software engineering",
+          "score": 6,
+          "callNumber": "005.1 ARO",
+          "stackLocation": "Central Library Stack",
+          "isbn": "0074620134"
+        },
+        {
+          "bookId": "nu_bk_0522",
+          "title": "Gate graduate aptitude test in engineering",
+          "score": 6,
+          "callNumber": "005.133 GAT",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_1043",
+          "title": "Request for proposal web gis based blood bank management",
+          "score": 6,
+          "callNumber": "910.285 GAJ",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0688",
+          "title": "Science in India (2004 - 2013) decade of achievements and rising aspirations",
+          "score": 6,
+          "callNumber": "509.54 DST",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0927",
+          "title": "Web ethics and securities management",
+          "score": 6,
+          "callNumber": "005.8 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0018",
+          "title": "Web ethics and security management",
+          "score": 6,
+          "callNumber": "005.8 NII",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    },
+    {
+      "topicId": "top_12",
+      "topicName": "Ancient Indian Mathematics and Astronomy",
+      "category": "Indian Knowledge System",
+      "course": "Indian Knowledge Systems (IKS)",
+      "studentQueries": [
+        "ancient Indian mathematical contributions Aryabhata and Sulba Sutras",
+        "Panini linguistic generative system and formal grammars",
+        "Nyaya logic epistemology Pramana theory of valid knowledge",
+        "Vedic mathematics concepts and algorithms",
+        "traditional Indian metallurgy and architecture"
+      ],
+      "recommendedBookId": "cat_07",
+      "bookTitle": "Indian Knowledge Systems: Concepts and Applications (Kapil Kapoor)",
+      "relevantChapters": [
+        "Section 2: Mathematics and Astronomy in India",
+        "Section 3: Linguistics & Philosophy of Language",
+        "Section 4: Epistemology & Logic"
+      ],
+      "whyRecommended": "Authoritative university text detailing Sulba Sutras geometry, Aryabhata's sine tables, and Paninian grammar rules.",
+      "catalogRecommendations": [
+        {
+          "bookId": "nu_bk_0090",
+          "title": "Chanakya neeti with sutras",
+          "score": 8,
+          "callNumber": "181.45 MAP",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9789350335536"
+        },
+        {
+          "bookId": "nu_bk_0965",
+          "title": "Condensed gospel of sri Ramakrishna",
+          "score": 8,
+          "callNumber": "294.5550 RAM",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0080",
+          "title": "Courage the joy of living dangerously",
+          "score": 8,
+          "callNumber": "181.499 OSH",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9780312205171"
+        },
+        {
+          "bookId": "nu_bk_0963",
+          "title": "Bhagavad Gita",
+          "score": 7,
+          "callNumber": "294.5924 RAD",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0966",
+          "title": "Brhadaranyaka upanisad",
+          "score": 7,
+          "callNumber": "294.59218 MAD",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0861",
+          "title": "Indian mythology (Children Book)",
+          "score": 7,
+          "callNumber": "294.5 MAP",
+          "stackLocation": "Central Library Stack",
+          "isbn": "9789350339152"
+        },
+        {
+          "bookId": "nu_bk_0976",
+          "title": "Samanya yog Abhyaskram",
+          "score": 7,
+          "callNumber": "294.544 AYU",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        },
+        {
+          "bookId": "nu_bk_0825",
+          "title": "Shri Chaitanya meets his mother : Kshitindranath Majumdar masterpiece IX",
+          "score": 7,
+          "callNumber": "294.55 DAG",
+          "stackLocation": "Central Library Stack",
+          "isbn": ""
+        }
+      ]
+    }
+  ]
+}

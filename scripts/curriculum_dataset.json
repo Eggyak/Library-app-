@@ -1,0 +1,211 @@
+{
+  "curriculum": "NIIT University B.Tech / M.Tech Computer Science & Electronics",
+  "version": "1.0",
+  "topics": [
+    {
+      "topicId": "top_01",
+      "topicName": "Deadlocks and Process Synchronization",
+      "category": "Computer Science",
+      "course": "Operating Systems",
+      "studentQueries": [
+        "I am unable to understand deadlocks",
+        "I don't understand deadlock prevention and avoidance",
+        "how does the banker's algorithm work in operating systems",
+        "coffman conditions for deadlock",
+        "semaphores and mutex locks synchronization",
+        "dining philosophers problem"
+      ],
+      "recommendedBookId": "cat_04",
+      "bookTitle": "Operating System Concepts (Silberschatz)",
+      "relevantChapters": ["Chapter 6: Synchronization Tools", "Chapter 7: Synchronization Examples", "Chapter 8: Deadlocks"],
+      "whyRecommended": "Silberschatz provides the canonical mathematical definition of Coffman's 4 conditions, Banker's Algorithm safety algorithm, and practical semaphore examples in C."
+    },
+    {
+      "topicId": "top_02",
+      "topicName": "Virtual Memory and Paging",
+      "category": "Computer Science",
+      "course": "Operating Systems",
+      "studentQueries": [
+        "how does virtual memory paging work",
+        "page replacement algorithms FIFO LRU Optimal",
+        "I don't understand thrashing in OS",
+        "translation lookaside buffer TLB",
+        "demand paging and page fault handling"
+      ],
+      "recommendedBookId": "cat_04",
+      "bookTitle": "Operating System Concepts (Silberschatz)",
+      "relevantChapters": ["Chapter 9: Main Memory", "Chapter 10: Virtual Memory"],
+      "whyRecommended": "Explains hardware-software interaction in MMU, TLB hits/misses, and step-by-step page replacement comparisons."
+    },
+    {
+      "topicId": "top_03",
+      "topicName": "Dynamic Programming",
+      "category": "Computer Science",
+      "course": "Data Structures & Algorithms",
+      "studentQueries": [
+        "how does dynamic programming work",
+        "I don't understand memoization vs tabulation",
+        "longest common subsequence LCS algorithm",
+        "matrix chain multiplication optimal parenthesization",
+        "0/1 knapsack problem dynamic programming"
+      ],
+      "recommendedBookId": "cat_06",
+      "bookTitle": "Introduction to Algorithms (CLRS)",
+      "relevantChapters": ["Chapter 15: Dynamic Programming"],
+      "whyRecommended": "CLRS is the worldwide standard for DP formulation, defining optimal substructure and overlapping subproblems with proof of correctness."
+    },
+    {
+      "topicId": "top_04",
+      "topicName": "Graph Algorithms and Shortest Paths",
+      "category": "Computer Science",
+      "course": "Data Structures & Algorithms",
+      "studentQueries": [
+        "dijkstra's algorithm shortest path",
+        "bellman ford algorithm negative weight cycles",
+        "minimum spanning tree prim and kruskal",
+        "breadth first search BFS vs depth first search DFS",
+        "floyd warshall all pairs shortest paths"
+      ],
+      "recommendedBookId": "cat_06",
+      "bookTitle": "Introduction to Algorithms (CLRS)",
+      "relevantChapters": ["Chapter 22: Elementary Graph Algorithms", "Chapter 23: Minimum Spanning Trees", "Chapter 24: Single-Source Shortest Paths"],
+      "whyRecommended": "Rigorous pseudocode and asymptotic runtime proofs for Dijkstra, Bellman-Ford, Kruskal, and Prim algorithms."
+    },
+    {
+      "topicId": "top_05",
+      "topicName": "Backpropagation and Neural Networks",
+      "category": "Computer Science",
+      "course": "Machine Learning & Deep Learning",
+      "studentQueries": [
+        "I am unable to understand backpropagation mathematics",
+        "how gradient descent updates weights with chain rule",
+        "stochastic gradient descent SGD and Adam optimizer",
+        "vanishing gradient problem in deep networks",
+        "activation functions relu sigmoid softmax"
+      ],
+      "recommendedBookId": "cat_10",
+      "bookTitle": "Deep Learning (Goodfellow, Bengio, Courville)",
+      "relevantChapters": ["Chapter 6: Deep Feedforward Networks", "Chapter 8: Optimization for Training Deep Models"],
+      "whyRecommended": "Ian Goodfellow breaks down computational graph differentiation, calculus chain rule, and modern adaptive optimizers."
+    },
+    {
+      "topicId": "top_06",
+      "topicName": "Informed Search and A* Algorithm",
+      "category": "Computer Science",
+      "course": "Artificial Intelligence",
+      "studentQueries": [
+        "I don't understand A* heuristic search",
+        "admissible and consistent heuristics",
+        "minimax algorithm and alpha beta pruning",
+        "Markov decision processes MDP and value iteration",
+        "bayesian belief networks probabilistic reasoning"
+      ],
+      "recommendedBookId": "cat_02",
+      "bookTitle": "Artificial Intelligence: A Modern Approach (Russell & Norvig)",
+      "relevantChapters": ["Chapter 3 & 4: Informed Search", "Chapter 5: Adversarial Search", "Chapter 13: Probabilistic Reasoning"],
+      "whyRecommended": "Russell & Norvig explains heuristic admissibility proofs, game tree pruning, and Bayesian network inference."
+    },
+    {
+      "topicId": "top_07",
+      "topicName": "Database Normalization and BCNF",
+      "category": "Computer Science",
+      "course": "Database Management Systems",
+      "studentQueries": [
+        "how to normalize a database table to 3NF and BCNF",
+        "functional dependencies and candidate key derivation",
+        "1NF 2NF 3NF and Boyce Codd normal form",
+        "lossless join decomposition and dependency preservation",
+        "ACID properties and transactions"
+      ],
+      "recommendedBookId": "cat_05",
+      "bookTitle": "Database System Concepts (Silberschatz)",
+      "relevantChapters": ["Chapter 6: Database Design and Normalization", "Chapter 14: Transactions"],
+      "whyRecommended": "Step-by-step algorithms to compute attribute closure, identify Armstrong axioms, and decompose tables into 3NF and BCNF."
+    },
+    {
+      "topicId": "top_08",
+      "topicName": "TCP/IP Transport Layer and Three-Way Handshake",
+      "category": "Computer Science",
+      "course": "Computer Networks",
+      "studentQueries": [
+        "I don't understand TCP 3-way handshake and connection teardown",
+        "how subnetting and CIDR prefix works",
+        "difference between TCP flow control and congestion control",
+        "sliding window protocol in transport layer",
+        "DNS hierarchy and resolution process"
+      ],
+      "recommendedBookId": "cat_03",
+      "bookTitle": "Computer Networking: A Top-Down Approach (Kurose & Ross)",
+      "relevantChapters": ["Chapter 2: Application Layer", "Chapter 3: Transport Layer", "Chapter 4: Network Layer"],
+      "whyRecommended": "Kurose & Ross uses Wireshark trace examples to visualize SYN, SYN-ACK, ACK packet exchanges and Reno/Tahoe congestion windows."
+    },
+    {
+      "topicId": "top_09",
+      "topicName": "Continuous & Discrete Fourier Transforms",
+      "category": "Electronics",
+      "course": "Signals and Systems",
+      "studentQueries": [
+        "I don't understand Fourier transform and frequency domain",
+        "how convolution integral works in LTI systems",
+        "Laplace transform region of convergence ROC",
+        "Z-transform inverse and poles/zeros stability",
+        "Nyquist-Shannon sampling theorem and aliasing"
+      ],
+      "recommendedBookId": "cat_09",
+      "bookTitle": "Signals and Systems (Oppenheim, Willsky, Nawab)",
+      "relevantChapters": ["Chapter 2: LTI Systems", "Chapter 4: Continuous-Time Fourier Transform", "Chapter 9 & 10: Laplace and Z-Transforms"],
+      "whyRecommended": "The classic MIT textbook demonstrating time-to-frequency duality, convolution proofs, and filter design."
+    },
+    {
+      "topicId": "top_10",
+      "topicName": "Docker Containerization and Kubernetes",
+      "category": "Computer Science",
+      "course": "Cloud Computing & DevOps",
+      "studentQueries": [
+        "how Docker containers differ from virtual machines",
+        "writing multi-stage Dockerfiles",
+        "Docker Compose for multi-container apps",
+        "understanding Kubernetes Pods, Services, and Deployments",
+        "container orchestration and microservices"
+      ],
+      "recommendedBookId": "cat_13",
+      "bookTitle": "Ultimate Docker Container Book (Gabriel N. Schenker)",
+      "relevantChapters": ["Chapter 3: Building Docker Images", "Chapter 6: Docker Compose", "Chapter 10: Kubernetes in Practice"],
+      "whyRecommended": "Hands-on guide to container namespaces, cgroups, image caching, and Kubernetes pod networking."
+    },
+    {
+      "topicId": "top_11",
+      "topicName": "React Hooks and Full Stack MERN Development",
+      "category": "Computer Science",
+      "course": "Web Application Engineering",
+      "studentQueries": [
+        "I want to learn react and node js",
+        "how React useEffect and useState hooks work",
+        "connecting Express backend to MongoDB database",
+        "JWT token authentication in MERN stack",
+        "state management in React apps"
+      ],
+      "recommendedBookId": "cat_12",
+      "bookTitle": "Pro MERN Stack (Vasan Subramanian)",
+      "relevantChapters": ["Chapter 4: React State & Lifecycle", "Chapter 7: Server-Side with Express", "Chapter 8: Database Integration with MongoDB"],
+      "whyRecommended": "Covers end-to-end full stack architecture from single page React routing down to REST APIs and MongoDB document schemas."
+    },
+    {
+      "topicId": "top_12",
+      "topicName": "Ancient Indian Mathematics and Astronomy",
+      "category": "Indian Knowledge System",
+      "course": "Indian Knowledge Systems (IKS)",
+      "studentQueries": [
+        "ancient Indian mathematical contributions Aryabhata and Sulba Sutras",
+        "Panini linguistic generative system and formal grammars",
+        "Nyaya logic epistemology Pramana theory of valid knowledge",
+        "Vedic mathematics concepts and algorithms",
+        "traditional Indian metallurgy and architecture"
+      ],
+      "recommendedBookId": "cat_07",
+      "bookTitle": "Indian Knowledge Systems: Concepts and Applications (Kapil Kapoor)",
+      "relevantChapters": ["Section 2: Mathematics and Astronomy in India", "Section 3: Linguistics & Philosophy of Language", "Section 4: Epistemology & Logic"],
+      "whyRecommended": "Authoritative university text detailing Sulba Sutras geometry, Aryabhata's sine tables, and Paninian grammar rules."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "short_name": "NU LIRC",
+  "name": "NIIT University LIRC Library",
+  "icons": [
+    {
+      "src": "/assets/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0E0E10",
+  "theme_color": "#8B1E1E",
+  "display": "standalone",
+  "orientation": "portrait"
+}
