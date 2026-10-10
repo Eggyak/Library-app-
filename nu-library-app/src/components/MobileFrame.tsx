@@ -60,7 +60,12 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({ children }) => {
         )}
 
         {/* Inner App Content */}
-        <div className="min-h-0 flex-1 flex flex-col overflow-hidden bg-[#0E0E10] relative">
+        <div className="min-h-0 flex-1 flex flex-col bg-[#0E0E10] relative" style={{
+          paddingLeft: 'max(0px, env(safe-area-inset-left))',
+          paddingRight: 'max(0px, env(safe-area-inset-right))',
+          paddingTop: 'max(0px, env(safe-area-inset-top))',
+          paddingBottom: 'max(0px, env(safe-area-inset-bottom))'
+        }}>
           {children}
         </div>
 

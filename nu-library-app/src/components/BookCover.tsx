@@ -44,7 +44,8 @@ export const BookCover: React.FC<BookCoverProps> = ({
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const style = CATEGORY_STYLES[book.category] || {
+  const category = book.category || 'General';
+  const style = CATEGORY_STYLES[category] || {
     bg: 'from-[#3A070B] via-[#240A0D] to-black',
     text: 'text-red-300',
     border: 'border-red-500/30'
@@ -56,8 +57,8 @@ export const BookCover: React.FC<BookCoverProps> = ({
     lg: 'w-28 h-38 min-w-28 min-h-38 text-xs'
   }[size];
 
-  // Try Open Library cover or specified coverImage
-  const coverUrl = !imageError && (book.coverImage || (book.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn.replace(/[^0-9X]/gi, '')}-M.jpg` : null));
+  // Try Open Library cover or specified coverUrl
+  const coverUrl = !imageError && (book.coverUrl || (book.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn.replace(/[^0-9X]/gi, '')}-M.jpg` : null));
 
   return (
     <div
@@ -88,7 +89,7 @@ export const BookCover: React.FC<BookCoverProps> = ({
           {/* Top header badge */}
           <div className="pl-2 pt-0.5">
             <span className="text-[7px] uppercase font-bold tracking-wider opacity-75 truncate block text-gray-300">
-              {book.category.split(' ')[0]}
+              {category.split(' ')[0]}
             </span>
           </div>
 
@@ -102,7 +103,7 @@ export const BookCover: React.FC<BookCoverProps> = ({
           {/* Author & Shelf footer */}
           <div className="pl-2 pb-0.5 pt-1 border-t border-white/10 flex items-center justify-between text-[7px] text-gray-300">
             <span className="truncate opacity-80">{book.author.split(' ')[0]}</span>
-            <span className="font-mono text-[6px] opacity-60 shrink-0">{book.callNumber.split(' ')[0]}</span>
+            <span className="font-mono text-[6px] opacity-60 shrink-0">{book.shelfLocation || 'Main Stack'}</span>
           </div>
         </div>
       )}

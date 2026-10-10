@@ -1,23 +1,26 @@
-export type UserRole = 'student' | 'admin';
+export type UserRole = 'guest' | 'admin' | 'staff';
 
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
   role: UserRole;
+  roleKey?: string;
+  roleName?: string;
   enrollmentNo: string;
-  mobile: string;
-  dob: string;
-  bloodGroup: string;
-  programCode: string;
-  session: string;
-  currentPattern: string;
-  fatherName: string;
-  fatherMobile: string;
-  motherName: string;
-  motherMobile: string;
+  mobile?: string;
+  dob?: string;
+  bloodGroup?: string;
+  programCode?: string;
+  session?: string;
+  currentPattern?: string;
+  fatherName?: string;
+  fatherMobile?: string;
+  motherName?: string;
+  motherMobile?: string;
   avatarUrl?: string;
   rfidNumber?: string;
+  mustChangePassword?: boolean;
 }
 
 export interface ChapterReference {
@@ -28,25 +31,28 @@ export interface ChapterReference {
 
 export interface Book {
   id: string;
-  biblionumber?: string;
   title: string;
   author: string;
-  isbn: string;
-  isbns?: string[];
-  publisher?: string;
-  year?: string;
-  callNumber: string;
-  stackLocation: string;
-  copiesAvailable: number;
-  totalCopies: number;
-  category: string;
-  description?: string;
-  coverImage?: string;
-  topics?: string[];
-  keyConcepts?: string[];
-  strugglingWith?: string[];
-  recommendedChapters?: ChapterReference[];
-  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
+  isbn?: string | null;
+  publisher?: string | null;
+  publicationYear?: number | null;
+  description?: string | null;
+  coverUrl?: string | null;
+  categoryId?: string | null;
+  category?: string | null;
+  shelfLocation?: string | null;
+  quantityTotal: number;
+  quantityAvailable: number;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface BookCategory {
+  id: string;
+  name: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type SearchIntentType = 'isbn' | 'title' | 'author' | 'topic' | 'general';
@@ -65,7 +71,7 @@ export interface IssuedBook {
   bookId: string;
   title: string;
   author: string;
-  isbn: string;
+  isbn?: string;
   issueDate: string;
   dueDate: string;
   returnDate?: string;
@@ -74,36 +80,65 @@ export interface IssuedBook {
   fineAmount?: number;
 }
 
+export interface DiscussionRoom {
+  id: string;
+  name: string;
+  capacity: number;
+  isActive: boolean;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface DiscussionRoomBooking {
   id: string;
-  allotmentRef: string;
-  studentName: string;
-  enrollmentNo: string;
+  studentId?: string | null;
   studentEmail: string;
-  bookingDate: string;
-  timeSlot: string;
-  groupSize: number;
-  additionalAttendees?: { name: string; enrollmentNo: string }[];
-  reason: string;
-  status: 'pending' | 'approved' | 'rejected' | 'completed';
-  submittedAt: string;
-  adminRemarks?: string;
-  allottedRoom?: string;
+  studentName: string;
+  enrollmentNo?: string | null;
+  roomId: string;
   roomName?: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  purpose: string;
+  groupSize: number;
+  status: 'pending' | 'approved' | 'denied' | 'cancelled';
+  remarks?: string | null;
+  overrideReason?: string | null;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface RoomAvailabilitySlot {
+  id: string;
+  startTime: string;
+  endTime: string;
+  status: 'approved' | 'pending';
+  purpose?: string;
 }
 
 export interface NewsClipping {
   id: string;
-  title: string;
+  title?: string | null;
   date: string;
-  category: 'NU in News' | 'Higher Education' | 'Science & Tech' | 'National' | 'Editorial';
-  summary: string;
-  keyPoints: string[];
-  sourceName: string;
-  pdfUrl?: string;
-  pdfFileName?: string;
-  pdfSize?: string;
-  isFeatured?: boolean;
+  topic: string;
+  newspaperName: string;
+  sourceUrl?: string | null;
+  notes?: string | null;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+  files: ClippingFile[];
+}
+
+export interface ClippingFile {
+  id: string;
+  originalName: string;
+  mimeType: string;
+  byteSize: number;
+  url: string;
 }
 
 export interface LibraryVisit {
@@ -117,22 +152,104 @@ export interface LibraryVisit {
   purpose: string;
 }
 
-export interface BookRequisition {
+export interface BookRequest {
   id: string;
-  title: string;
-  author: string;
-  publisher?: string;
-  edition?: string;
-  reason: string;
+  studentId?: string | null;
+  studentEmail: string;
   studentName: string;
-  enrollmentNo: string;
-  date: string;
-  status: 'submitted' | 'under_review' | 'approved' | 'ordered';
+  enrollmentNo?: string | null;
+  title: string;
+  author?: string | null;
+  publisher?: string | null;
+    edition?: string | null;
+    isbn?: string | null;
+  reason: string;
+  catalogBookId?: string | null;
+  status: 'pending' | 'done' | 'rejected';
+  remarks?: string | null;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface LibraryTimingItem {
-  dayRange: string;
-  openingHours: string;
-  circulationHours: string;
+  weekday: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+  opening: string;
+  closing: string;
   notes?: string;
+}
+
+export interface GeneralInfo {
+  rulesMarkdown: string;
+  timings: LibraryTimingItem[];
+  contact: {
+    email?: string;
+    phone?: string;
+    address?: string;
+  };
+  version: number;
+  updatedAt?: string | null;
+}
+
+export interface HolidayItem {
+  id: string;
+  date: string;
+  name: string;
+  isClosed: boolean;
+  specialOpening?: string | null;
+  specialClosing?: string | null;
+  notes?: string | null;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface EResourceCategory {
+  id: string;
+  name: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface EResourceItem {
+  id: string;
+  title: string;
+  description?: string | null;
+  url: string;
+  categoryId?: string | null;
+  category?: string | null;
+  requiresCampusNetwork: boolean;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface AnnouncementItem {
+  id: string;
+  title: string;
+  body: string;
+  startsAt?: string | null;
+  endsAt?: string | null;
+  isPublished: boolean;
+  version: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    pageCount: number;
+  };
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  error?: { code: string; message: string; details?: any };
+  isOffline?: boolean;
+  cachedAt?: string;
 }

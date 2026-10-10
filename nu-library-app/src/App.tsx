@@ -1,87 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { UserProfile, DiscussionRoomBooking, NewsClipping, IssuedBook, LibraryVisit, BookRequisition } from './types';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { UserProfile } from './types';
 import { StorageService } from './services/storage';
+import { Api, realtimeManager } from './services/api';
 import { HeaderBar } from './components/HeaderBar';
 import { DrawerNavigation, ScreenName } from './components/DrawerNavigation';
 import { MobileFrame } from './components/MobileFrame';
 import { BottomNavigation } from './components/BottomNavigation';
-import { LoginScreen } from './screens/LoginScreen';
 import { StudentDashboard } from './screens/StudentDashboard';
 import { DiscussionRoomScreen } from './screens/DiscussionRoomScreen';
-import { AdminApprovalDesk } from './screens/AdminApprovalDesk';
 import { NewsClippingsScreen } from './screens/NewsClippingsScreen';
-import { AdminNewsPublish } from './screens/AdminNewsPublish';
-import { LibraryStatsScreen } from './screens/LibraryStatsScreen';
 import { OpacCatalogScreen } from './screens/OpacCatalogScreen';
 import { BookRequisitionScreen } from './screens/BookRequisitionScreen';
 import { LircInfoScreen } from './screens/LircInfoScreen';
 import { LircResourcesScreen } from './screens/LircResourcesScreen';
 import { NewArrivalsScreen } from './screens/NewArrivalsScreen';
+import { FeedbackFormScreen } from './screens/FeedbackFormScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
+import { DiscussionRoomErrorBoundary } from './components/DiscussionRoomErrorBoundary';
 import { isNfcFeatureAvailable } from './services/nfcCapability';
+import { WifiOff } from 'lucide-react';
 
 export function App() {
-  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [currentUser] = useState<UserProfile>({ id: 'guest', name: 'NUton Member', email: '', role: 'guest', enrollmentNo: '' });
   const [activeScreen, setActiveScreen] = useState<ScreenName>('dashboard');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [nfcSupported, setNfcSupported] = useState(false);
   const [nfcCardEnabled, setNfcCardEnabled] = useState(StorageService.getNfcCardEnabled());
-
-  // App domain state
-  const [bookings, setBookings] = useState<DiscussionRoomBooking[]>([]);
-  const [news, setNews] = useState<NewsClipping[]>([]);
-  const [issuedBooks, setIssuedBooks] = useState<IssuedBook[]>([]);
-  const [visits, setVisits] = useState<LibraryVisit[]>([]);
-  const [requisitions, setRequisitions] = useState<BookRequisition[]>([]);
   const [catalogSearchQuery, setCatalogSearchQuery] = useState('');
+  const [isOffline, setIsOffline] = useState(false);
+  const [bottomNavVisible, setBottomNavVisible] = useState(true);
+  const mainScrollRef = useRef<{ scrollOffset: number; lastScrollY: number }>({ scrollOffset: 0, lastScrollY: 0 });
 
-  // Load initial state
+  const handleMainScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - mainScrollRef.current.lastScrollY;
+    mainScrollRef.current.lastScrollY = currentScrollY;
+
+    if (delta > 5 && bottomNavVisible) {
+      setBottomNavVisible(false);
+    } else if (delta < -5 && !bottomNavVisible) {
+      setBottomNavVisible(true);
+    }
+    mainScrollRef.current.scrollOffset = currentScrollY;
+  }, [bottomNavVisible]);
+
   useEffect(() => {
     setNfcSupported(isNfcFeatureAvailable());
-    const user = StorageService.getCurrentUser();
-    // Default to student if not explicitly logged out
-    if (!user) {
-      // Show login screen
-      setCurrentUser(null);
-    } else {
-      setCurrentUser(user);
-    }
-    loadData();
-  }, []);
-
-  const loadData = () => {
-    setBookings(StorageService.getBookings());
-    setNews(StorageService.getNewsClippings());
-    setIssuedBooks(StorageService.getIssuedBooks());
-    setVisits(StorageService.getVisits());
-    setRequisitions(StorageService.getRequisitions());
-  };
-
-  const handleLoginSuccess = (user: UserProfile) => {
-    setCurrentUser(user);
-    setActiveScreen('dashboard');
-    loadData();
-  };
-
-  const handleLogout = () => {
     StorageService.logout();
-    setCurrentUser(null);
-    setIsDrawerOpen(false);
-  };
 
-  const handleToggleRole = () => {
-    if (!currentUser) return;
-    if (currentUser.role === 'student') {
-      const admin = StorageService.loginAsAdmin();
-      setCurrentUser(admin);
-    } else {
-      const student = StorageService.loginAsStudent();
-      setCurrentUser(student);
-    }
-    loadData();
-  };
+    realtimeManager.start();
 
-  const pendingCount = bookings.filter(b => b.status === 'pending').length;
+    const handleOffline = () => setIsOffline(true);
+    const handleOnline = () => setIsOffline(false);
+
+    window.addEventListener('lirc:offline', handleOffline);
+    window.addEventListener('lirc:online', handleOnline);
+    window.addEventListener('scroll', handleMainScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('lirc:offline', handleOffline);
+      window.removeEventListener('lirc:online', handleOnline);
+      window.removeEventListener('scroll', handleMainScroll);
+      realtimeManager.stop();
+    };
+  }, [handleMainScroll]);
 
   const getScreenTitle = (screen: ScreenName): string => {
     switch (screen) {
@@ -89,14 +71,8 @@ export function App() {
         return 'NU LIRC';
       case 'discussion_rooms':
         return 'Discussion Rooms';
-      case 'admin_approvals':
-        return 'Room Approval Desk';
       case 'news_clippings':
         return 'Daily News Clips';
-      case 'admin_publish_news':
-        return 'Publish Daily News';
-      case 'library_stats':
-        return 'Library Stats & Books';
       case 'opac_catalog':
         return 'Koha OPAC Search';
       case 'book_requisition':
@@ -109,6 +85,8 @@ export function App() {
         return 'LIRC e-Resources & Links';
       case 'new_arrivals':
         return 'New Arrivals';
+      case 'feedback':
+        return 'Feedback';
       case 'settings':
         return 'Settings';
       default:
@@ -116,22 +94,38 @@ export function App() {
     }
   };
 
-  // If not logged in, render the LoginScreen inside MobileFrame
-  if (!currentUser) {
-    return (
-      <MobileFrame>
-        <LoginScreen onLoginSuccess={handleLoginSuccess} />
-      </MobileFrame>
-    );
-  }
-
   return (
     <MobileFrame>
-      <div className="flex h-full min-h-0 flex-col bg-[#0E0E10] relative text-white">
-        {/* Top Header Bar */}
+      <div className="flex h-full min-h-0 flex-col bg-[#0E0E10] relative text-white" style={{
+        paddingTop: 'max(0px, env(safe-area-inset-top))',
+        paddingLeft: 'max(0px, env(safe-area-inset-left))',
+        paddingRight: 'max(0px, env(safe-area-inset-right))'
+      }}>
+        {/* Offline notification banner if laptop server is unreachable */}
+        {isOffline && (
+          <div className="bg-amber-600/90 text-white text-[11px] px-3 py-1.5 flex items-center justify-between z-40">
+            <div className="flex items-center space-x-1.5">
+              <WifiOff className="w-3.5 h-3.5 shrink-0" />
+              <span>Offline mode — Trying to reach library server...</span>
+            </div>
+            <button
+              onClick={() => {
+                Api.getHealth().then(() => setIsOffline(false)).catch(() => {});
+              }}
+              className="underline text-[10px] font-semibold hover:text-amber-100"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
+        {/* Top Header Bar with 7-tap server settings modal */}
         <HeaderBar
           title={getScreenTitle(activeScreen)}
           onOpenDrawer={() => setIsDrawerOpen(true)}
+          onServerUrlChanged={() => {
+            realtimeManager.start();
+          }}
         />
 
         {/* Side Drawer Navigation */}
@@ -141,8 +135,6 @@ export function App() {
           activeScreen={activeScreen}
           onSelectScreen={(screen) => setActiveScreen(screen)}
           currentUser={currentUser}
-          onLogout={handleLogout}
-          pendingBookingsCount={pendingCount}
         />
 
         {/* Main Screen Body */}
@@ -152,100 +144,64 @@ export function App() {
               user={currentUser}
               nfcSupported={nfcSupported}
               nfcCardEnabled={nfcCardEnabled}
-              bookings={bookings}
-              news={news}
-              issuedBooks={issuedBooks}
-              visits={visits}
               onNavigate={(s, query) => {
                 if (query !== undefined) setCatalogSearchQuery(query);
                 setActiveScreen(s);
               }}
-              onRefreshData={loadData}
             />
           )}
 
-          {activeScreen === 'discussion_rooms' && (
-            <DiscussionRoomScreen
-              user={currentUser}
-              bookings={bookings}
-              onRefreshData={loadData}
-            />
-          )}
+           {activeScreen === 'discussion_rooms' && (
+             <DiscussionRoomErrorBoundary>
+               <DiscussionRoomScreen user={currentUser} />
+             </DiscussionRoomErrorBoundary>
+           )}
 
-          {activeScreen === 'admin_approvals' && (
-            <AdminApprovalDesk
-              bookings={bookings}
-              onRefreshData={loadData}
-            />
-          )}
+           {activeScreen === 'news_clippings' && (
+             <NewsClippingsScreen
+               currentUser={currentUser}
+             />
+           )}
 
-          {activeScreen === 'news_clippings' && (
-            <NewsClippingsScreen
-              news={news}
-              currentUser={currentUser}
-              onNavigateToPublish={() => setActiveScreen('admin_publish_news')}
-            />
-          )}
+           {activeScreen === 'opac_catalog' && (
+             <OpacCatalogScreen
+               initialQuery={catalogSearchQuery}
+               onNavigateToRequisition={() => setActiveScreen('book_requisition')}
+             />
+           )}
 
-          {activeScreen === 'admin_publish_news' && (
-            <AdminNewsPublish
-              news={news}
-              onRefreshData={loadData}
-            />
-          )}
+           {activeScreen === 'book_requisition' && (
+             <BookRequisitionScreen user={currentUser} />
+           )}
 
-          {activeScreen === 'library_stats' && (
-            <LibraryStatsScreen
-              user={currentUser}
-              issuedBooks={issuedBooks}
-              visits={visits}
-              onRefreshData={loadData}
-            />
-          )}
+           {activeScreen === 'timings' && (
+             <LircInfoScreen initialTab="timings" />
+           )}
 
-          {activeScreen === 'opac_catalog' && (
-            <OpacCatalogScreen
-              initialQuery={catalogSearchQuery}
-              onNavigateToRequisition={() => setActiveScreen('book_requisition')}
-            />
-          )}
+           {activeScreen === 'rules' && (
+             <LircInfoScreen initialTab="rules" />
+           )}
 
-          {activeScreen === 'book_requisition' && (
-            <BookRequisitionScreen
-              user={currentUser}
-              requisitions={requisitions}
-              onRefreshData={loadData}
-            />
-          )}
+           {activeScreen === 'lirc_resources' && (
+             <LircResourcesScreen />
+           )}
 
-          {activeScreen === 'timings' && (
-            <LircInfoScreen initialTab="timings" />
-          )}
+           {activeScreen === 'new_arrivals' && (
+             <NewArrivalsScreen onNavigate={(s) => setActiveScreen(s as any)} />
+           )}
 
-          {activeScreen === 'rules' && (
-            <LircInfoScreen initialTab="rules" />
-          )}
+           {activeScreen === 'feedback' && (
+             <FeedbackFormScreen user={currentUser} />
+           )}
 
-          {activeScreen === 'lirc_resources' && (
-            <LircResourcesScreen />
-          )}
-
-          {activeScreen === 'new_arrivals' && (
-            <NewArrivalsScreen onNavigate={(s) => setActiveScreen(s as any)} />
-          )}
-
-          {activeScreen === 'settings' && (
+           {activeScreen === 'settings' && (
             <SettingsScreen
-              currentUser={currentUser}
               nfcSupported={nfcSupported}
               nfcCardEnabled={nfcCardEnabled}
               onNfcCardEnabledChange={(enabled) => {
                 StorageService.setNfcCardEnabled(enabled);
                 setNfcCardEnabled(enabled);
               }}
-              onToggleRole={handleToggleRole}
-              onRefreshData={loadData}
-              onLogout={handleLogout}
             />
           )}
         </main>
@@ -257,6 +213,7 @@ export function App() {
             setActiveScreen(screen);
           }}
           onOpenMenu={() => setIsDrawerOpen(true)}
+          visible={bottomNavVisible}
         />
       </div>
     </MobileFrame>

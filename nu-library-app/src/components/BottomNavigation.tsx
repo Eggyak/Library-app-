@@ -6,6 +6,7 @@ interface BottomNavigationProps {
   activeScreen: ScreenName;
   onSelectScreen: (screen: ScreenName) => void;
   onOpenMenu: () => void;
+  visible?: boolean;
 }
 
 const primaryScreens: { screen: ScreenName; label: string; icon: typeof LayoutDashboard }[] = [
@@ -17,11 +18,14 @@ const primaryScreens: { screen: ScreenName; label: string; icon: typeof LayoutDa
 export const BottomNavigation: React.FC<BottomNavigationProps> = ({
   activeScreen,
   onSelectScreen,
-  onOpenMenu
+  onOpenMenu,
+  visible = true,
 }) => (
   <nav
     aria-label="Main navigation"
-    className="relative z-30 shrink-0 border-t border-[#8A151B] bg-[#09090b] px-2"
+    className={`relative z-30 shrink-0 border-t border-[#8A151B] bg-[#09090b] transition-all duration-300 ease-in-out ${
+      visible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+    }`}
     style={{ paddingBottom: 'max(0.35rem, env(safe-area-inset-bottom))' }}
   >
     <div className="grid h-[46px] grid-cols-5 items-center">

@@ -1,138 +1,137 @@
-import React, { useState } from 'react';
-import { ExternalLink, ChevronRight, Search, FilterX } from 'lucide-react';
-import { LIRC_AFFILIATED_RESOURCES, LibraryLinkCategory, LibraryLinkItem } from '../data/libraryLinks';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ChevronDown, ChevronRight, ExternalLink, FilterX, Globe, Search, Shield, RefreshCw } from 'lucide-react';
+import { Api } from '../services/api';
+import { EResourceItem } from '../types';
+
+type ResourceCategory = { id: string; name: string };
 
 export const LircResourcesScreen: React.FC = () => {
+  const [resources, setResources] = useState<EResourceItem[]>([]);
+  const [categories, setCategories] = useState<ResourceCategory[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
-  const filteredCategories = LIRC_AFFILIATED_RESOURCES.map(category => ({
-    ...category,
-    items: category.items.filter(item =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (item.description?.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      category.category.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  })).filter(category => category.items.length > 0);
+  const loadResources = useCallback(async (showLoading = true) => {
+    if (showLoading) setLoading(true);
+    try {
+      const [resourceResult, categoryResult] = await Promise.all([
+        Api.getEResources(),
+        Api.getEResourceCategories(),
+      ]);
+      const list = resourceResult.data?.items || [];
+      const categoryList = categoryResult.data?.items || [];
+      setResources(list);
+      setCategories(categoryList);
+      // New categories created in the staff portal open automatically when first received.
+      setExpandedCategories(previous => {
+        const next = new Set(previous);
+        for (const category of categoryList) if (!previous.has(category.name)) next.add(category.name);
+        for (const item of list) {
+          const name = item.category || 'General e-Resources';
+          if (!previous.has(name)) next.add(name);
+        }
+        return next;
+      });
+    } catch (err) {
+      console.warn('Failed to load e-resources:', err);
+    } finally {
+      if (showLoading) setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadResources();
+    const handleUpdate = () => void loadResources(false);
+    const handleResume = () => void loadResources(false);
+    const poll = window.setInterval(() => void loadResources(false), 20000);
+    window.addEventListener('lirc:realtime:e_resources', handleUpdate);
+    document.addEventListener('visibilitychange', handleResume);
+    window.addEventListener('focus', handleResume);
+    return () => {
+      window.clearInterval(poll);
+      window.removeEventListener('lirc:realtime:e_resources', handleUpdate);
+      document.removeEventListener('visibilitychange', handleResume);
+      window.removeEventListener('focus', handleResume);
+    };
+  }, [loadResources]);
+
+  const groupedCategories = useMemo(() => {
+    const categoryNames = new Set<string>(categories.map(category => category.name));
+    for (const item of resources) categoryNames.add(item.category || 'General e-Resources');
+    const query = searchQuery.trim().toLowerCase();
+    return [...categoryNames].map(category => {
+      const items = resources.filter(item => (item.category || 'General e-Resources') === category);
+      const matching = items.filter(item => !query ||
+        item.title.toLowerCase().includes(query) ||
+        (item.description || '').toLowerCase().includes(query) ||
+        category.toLowerCase().includes(query));
+      return { category, items: matching };
+    }).filter(group => !query ? true : group.items.length > 0 || group.category.toLowerCase().includes(query));
+  }, [categories, resources, searchQuery]);
 
   const toggleCategory = (categoryName: string) => {
-    const newExpanded = new Set(expandedCategories);
-    if (newExpanded.has(categoryName)) {
-      newExpanded.delete(categoryName);
-    } else {
-      newExpanded.add(categoryName);
-    }
-    setExpandedCategories(newExpanded);
+    setExpandedCategories(previous => {
+      const next = new Set(previous);
+      if (next.has(categoryName)) next.delete(categoryName);
+      else next.add(categoryName);
+      return next;
+    });
   };
 
-  const isExpanded = (categoryName: string) => expandedCategories.has(categoryName);
-
-  const openLink = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+  const openLink = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
 
   return (
-    <div className="p-4 space-y-4 animate-fade-in text-white pb-24">
-      {/* Search Bar */}
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search resources, databases, links..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[#1C1C1E] border border-gray-700 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#8A151B]"
-        />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
-            aria-label="Clear search"
-          >
-            <FilterX className="w-5 h-5" />
+    <div className="min-h-full bg-[#0d0d0f] p-4 pb-24 text-white animate-fade-in">
+      <div className="sticky top-0 z-10 -mx-4 -mt-4 mb-5 border-b border-[#7d1a1d] bg-[#101012] px-4 py-4">
+        <div className="flex items-center gap-3">
+          <Globe className="h-5 w-5 text-[#f16670]" />
+          <div className="min-w-0 flex-1">
+            <h2 className="text-base font-semibold tracking-wide">LIRC e-Resources &amp; Links</h2>
+            <p className="mt-0.5 text-[11px] text-gray-400">Library links, digital collections, and services</p>
+          </div>
+          <button onClick={() => void loadResources()} disabled={loading} aria-label="Refresh resources" className="rounded-lg p-2 text-gray-400 hover:bg-white/5 hover:text-white">
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
-        )}
+        </div>
       </div>
 
-      {searchQuery && (
-        <p className="text-xs text-gray-400 px-1">
-          Showing results for "{searchQuery}"
-        </p>
+      <div className="relative mb-5">
+        <Search className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+        <input type="search" placeholder="Search resources, databases, links..." value={searchQuery} onChange={event => setSearchQuery(event.target.value)} className="w-full rounded-2xl border border-[#37383f] bg-[#1b1b1e] py-3.5 pl-11 pr-11 text-sm text-white placeholder:text-gray-500 focus:border-[#8e272b] focus:outline-none" />
+        {searchQuery && <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"><FilterX className="h-4 w-4" /></button>}
+      </div>
+
+      {loading && resources.length === 0 && categories.length === 0 ? (
+        <div className="py-12 text-center text-sm text-gray-400"><RefreshCw className="mx-auto mb-2 h-5 w-5 animate-spin text-[#f16670]" />Loading library links…</div>
+      ) : groupedCategories.length === 0 ? (
+        <div className="rounded-2xl border border-[#29292d] bg-[#1b1b1e] py-12 text-center text-sm text-gray-400">No resources found.</div>
+      ) : (
+        <div className="space-y-3">
+          {groupedCategories.map(({ category, items }) => {
+            const expanded = expandedCategories.has(category);
+            return <section key={category} className="overflow-hidden rounded-[24px] border border-[#303034] bg-[#1b1b1e] shadow-sm">
+              <button onClick={() => toggleCategory(category)} aria-expanded={expanded} className="flex w-full items-center gap-3.5 px-4 py-4 text-left hover:bg-white/[0.025]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#32191c] text-[#f16670]"><ExternalLink className="h-6 w-6" /></span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold leading-5 text-gray-100">{category}</span>
+                  <span className="mt-1 block text-xs leading-5 text-gray-400">{items.length ? `${items.length} ${items.length === 1 ? 'resource' : 'resources'} and library links` : 'Library resources and services'}</span>
+                </span>
+                {expanded ? <ChevronDown className="h-5 w-5 shrink-0 text-gray-400" /> : <ChevronRight className="h-5 w-5 shrink-0 text-gray-400" />}
+              </button>
+              {expanded && items.length > 0 && <div className="border-t border-[#2b2b2f]">
+                {items.map(item => <button key={item.id} onClick={() => openLink(item.url)} className="flex w-full items-start gap-3 border-b border-[#28282c] px-4 py-4 text-left last:border-b-0 hover:bg-white/[0.025]">
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-center gap-2 text-sm font-medium leading-5 text-gray-100">{item.title}{item.requiresCampusNetwork && <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300"><Shield className="h-3 w-3" />Campus Intranet</span>}</span>
+                    {item.description && <span className="mt-1.5 block text-xs leading-5 text-gray-400">{item.description}</span>}
+                  </span>
+                  <ExternalLink className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" />
+                </button>)}
+              </div>}
+            </section>;
+          })}
+        </div>
       )}
-
-      {/* Categories */}
-      <div className="space-y-3">
-        {filteredCategories.map((category) => (
-          <div key={category.category} className="rounded-2xl bg-[#1C1C1E] border border-[#2C2C30] overflow-hidden">
-            {/* Category Header */}
-            <button
-              onClick={() => toggleCategory(category.category)}
-              className="w-full p-4 flex items-center justify-between text-left"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-[#8A151B]/20 text-red-400">
-                  <ExternalLink className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-white text-sm">{category.category}</h3>
-                  {category.description && (
-                    <p className="text-[11px] text-gray-400 mt-0.5">{category.description}</p>
-                  )}
-                </div>
-              </div>
-              <ChevronRight
-                className={`w-5 h-5 text-gray-400 transition-transform ${isExpanded(category.category) ? 'rotate-90' : ''}`}
-              />
-            </button>
-
-            {/* Category Items */}
-            {isExpanded(category.category) && (
-              <div className="border-t border-[#2C2C30] divide-y divide-[#242428]">
-                {category.items.map((item, index) => (
-                  <button
-                    key={`${category.category}-${index}`}
-                    onClick={() => openLink(item.url)}
-                    className="w-full p-4 flex items-start justify-between space-x-3 hover:bg-[#242428] transition-colors text-left"
-                  >
-                    <div className="flex-1 min-w-0 pr-3">
-                      <div className="flex items-center space-x-2">
-                        <h4 className="font-medium text-white text-sm truncate">{item.title}</h4>
-                        {item.badge && (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-600/30 text-amber-300 border border-amber-500/30 whitespace-nowrap">
-                            {item.badge}
-                          </span>
-                        )}
-                      </div>
-                      {item.description && (
-                        <p className="text-[11px] text-gray-400 mt-1 line-clamp-2">{item.description}</p>
-                      )}
-                    </div>
-                    <ExternalLink className="w-5 h-5 text-gray-500 shrink-0 mt-0.5 hover:text-red-400 transition-colors" />
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-
-        {filteredCategories.length === 0 && (
-          <div className="text-center py-12 px-4 rounded-3xl bg-[#1C1C1E] border border-gray-800 space-y-3">
-            <Search className="w-10 h-10 text-gray-500 mx-auto" />
-            <h4 className="text-sm font-semibold text-gray-300">No Resources Found</h4>
-            <p className="text-xs text-gray-500 max-w-xs mx-auto">
-              Try adjusting your search terms or browse all categories.
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* Footer Note */}
-      <div className="pt-4 border-t border-[#2C2C30] p-3 rounded-2xl bg-[#121214] border-[#333338] text-[11px] text-gray-400 space-y-1">
-        <p className="font-semibold text-gray-300">Note:</p>
-        <p>Links marked <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-600/30 text-amber-300 border border-amber-500/30">Campus Intranet</span> or <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-600/30 text-amber-300 border border-amber-500/30">Drive Archive</span> require campus network or VPN access.</p>
-        <p>For remote access to subscribed databases (EBSCO, IEEE, JSTOR, etc.), use the <strong>INFED - Shibboleth</strong> link under <strong>LIRC@Remote Access & Networks</strong>.</p>
-        <p className="pt-2 border-t border-[#2C2C30]">Maintained by LIRC, NIIT University. Last updated: Sep 2026.</p>
-      </div>
     </div>
   );
 };
